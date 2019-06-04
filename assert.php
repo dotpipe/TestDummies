@@ -106,9 +106,9 @@ var index = 0;
 		else if (elem.id == "divide")
 			textareaClicked(" / ");
 		else if (elem.id == "assertstr")
-			textareaClicked("assert('", "')");
+			textareaClicked("assert('", "');");
 		else if (elem.id == "assertbool")
-			textareaClicked("assert(", ")");
+			textareaClicked("assert(", ");");
 		else if (elem.id == "redo" && undo_text.length > 0) {
 			if (redo_text[redo_text.length-1] == "undefined")
 				redo_text.pop();
@@ -166,12 +166,12 @@ textareaClicked = function(str1, str2) {
 	var Selection = document.getElementById("code").value.slice(posS,posE);
 	var afterSelection = document.getElementById("code").value.slice(posE);
 	console.log(posS + " " + posE);
-	if (str2 !== undefined && Selection !== "undefined" && Selection !== "") {
-		var newHTML = beforeSelection + str1 + Selection + str2 + afterSelection;
+	if (str2 == "" || str2 == undefined) {
+		var newHTML = beforeSelection + str1 + afterSelection;
 		document.getElementById("code").value = newHTML;
 	}
-	else if (str2 == "" || str2 == undefined) {
-		var newHTML = beforeSelection + str1 + afterSelection;
+	else if (str2 !== undefined && Selection !== undefined && Selection !== "") {
+		var newHTML = beforeSelection + str1 + Selection + str2 + afterSelection;
 		document.getElementById("code").value = newHTML;
 	}
 	else if (Selection === "undefined" || Selection === "") {
@@ -207,7 +207,7 @@ td {
 
 </head>
 
-<body bgcolor="lightgray" style="margin-bottom:125" onload="">
+<body bgcolor="lightgray">
 
 <div class="jumbotron">
 	<h3>Assertion Code Manipulator</h3>
@@ -219,7 +219,7 @@ td {
 		</p>
 	</div>
 	<textarea id="code"><?php echo "public function function_name(\$arg1, \$arg2) { \n\n\n }"; ?></textarea><hr>
-	<table position="fixed" style="width:100%">
+	<table class="table-responsive" position="fixed" style="width:100%">
 		<tr>
 			<td class="well">
 			<div class="btn-group">
